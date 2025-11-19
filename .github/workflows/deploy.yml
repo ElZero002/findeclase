@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/${{ findeclase }}:latest
+          tags: ghcr.io/elzero002/findeclase:1.0.0
