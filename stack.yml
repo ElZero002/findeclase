@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  cuji:
+    image: 
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.cuji.entrypoints=http"
+        - "traefik.http.routers.cuji.rule=Host(`cuji.byronrm.com`)"
+        - "traefik.http.middlewares.cuji-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.cuji.middlewares=cuji-https-redirect"
+        - "traefik.http.routers.cuji-secure.entrypoints=https"
+        - "traefik.http.routers.cuji-secure.rule=Host(`cuji.byronrm.com`)"
+        - "traefik.http.routers.cuji-secure.tls=true"
+        - "traefik.http.routers.cuji-secure.tls.certresolver=http"
+        - "traefik.http.routers.cuji-secure.service=cuji"
+        - "traefik.http.services.cuji.loadbalancer.server.port=5000"
+        - "traefik.docker.network=traefik-public"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - traefik-public
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "no"]
+    volumes:
+      - redis_data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+    networks:
+      - appnet
+
+volumes:
+  redis_data:
+
+networks:
+  appnet:
+    driver: overlay
+
+  traefik-public:
+    external: true
