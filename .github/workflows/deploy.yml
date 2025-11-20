@@ -65,7 +65,8 @@ jobs:
           port: ${{ secrets.VPS_SSH_PORT }}
           script: |
             echo "✅ Despliega servicios"
-            docker stack rm ghostcito || true
-            #docker pull ghcr.io/elzero002/findeclase:1.0.0
-            echo "Procesando el stack..."
-            docker stack deploy -c /home/${{ secrets.VPS_USER }}/despliegue/stack.yml --with-registry-auth ghostcito
+            #docker stack rm ghostcito || true
+            echo "${{secrets.GHCR_PAT}}" | docker login ghcr.io -u elzero002 --password-stdin
+            docker pull ghcr.io/elzero002/findeclase:1.0.0
+            #echo "Procesando el stack..."
+            #docker stack deploy -c /home/${{ secrets.VPS_USER }}/despliegue/#stack.yml --with-registry-auth ghostcito
