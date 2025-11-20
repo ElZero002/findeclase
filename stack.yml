@@ -24,12 +24,11 @@ services:
         - "traefik.http.routers.cuji-secure.service=cuji"
         - "traefik.http.services.cuji.loadbalancer.server.port=5000"
         - "traefik.docker.network=traefik-public"
-      networks:
-        - traefik-public
-
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    networks:
+      - traefik-public  # Aquí, fuera del bloque deploy, debe ir la red
 
   redis:
     image: redis:7-alpine
@@ -44,8 +43,8 @@ services:
         limits:
           cpus: "0.25"
           memory: 256M
-      networks:
-        - appnet
+    networks:
+      - appnet  # La red `appnet` también debe ir fuera del bloque deploy
 
 volumes:
   redis_data:
