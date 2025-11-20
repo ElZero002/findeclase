@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   cuji:
-    image: 
+    image: ghcr.io/elzero002/findeclase:1.0.0
     deploy:
       replicas: 1
       restart_policy:
