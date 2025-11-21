@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/elzero002/findeclase:1.0.0
+          tags: ghcr.io/elzero002/findeclase:1.0.1
 
       - name: 🧾 Mostrar variables básicas (solo locales, no secretos)
         run: |
@@ -70,7 +70,7 @@ jobs:
             #Paso 1
             #echo descargando imagen GHCR
             echo "${{secrets.GHCR_PAT}}" | docker login ghcr.io -u elzero002 --password-stdin
-            docker pull ghcr.io/elzero002/findeclase:1.0.0
+            docker pull ghcr.io/elzero002/findeclase:1.0.1
 
             #Paso 2 borrar stack
             docker stack rm ghostcito || true
