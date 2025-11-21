@@ -16,7 +16,7 @@ services:
         - "traefik.http.routers.cuji-secure.tls=true"
         - "traefik.http.routers.cuji-secure.tls.certresolver=http"
         - "traefik.http.routers.cuji-secure.service=cuji"
-        - "traefik.http.services.cuji.loadbalancer.server.port=80"
+        - "traefik.http.services.cuji.loadbalancer.server.port=8302"
         - "traefik.docker.network=traefik-public"
     networks:
       - traefik-public
