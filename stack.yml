@@ -8,11 +8,11 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.cuji.entrypoints=http"
-        - "traefik.http.routers.cuji.rule=Host(cuji.byronrm.com)"
+        - "traefik.http.routers.cuji.rule=Host(`cuji.byronrm.com`)"
         - "traefik.http.middlewares.cuji-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.cuji.middlewares=cuji-https-redirect"
         - "traefik.http.routers.cuji-secure.entrypoints=https"
-        - "traefik.http.routers.cuji-secure.rule=Host(cuji.byronrm.com)"
+        - "traefik.http.routers.cuji-secure.rule=Host(`cuji.byronrm.com`)"
         - "traefik.http.routers.cuji-secure.tls=true"
         - "traefik.http.routers.cuji-secure.tls.certresolver=http"
         - "traefik.http.routers.cuji-secure.service=cuji"
